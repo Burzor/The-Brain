@@ -1,1 +1,263 @@
 # The-Brain
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Brain Clock</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a2e, #16213e);
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            color: white;
+        }
+        
+        .container {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        h1 {
+            margin-bottom: 10px;
+            color: #e94560;
+            text-shadow: 0 0 10px rgba(233, 69, 96, 0.5);
+        }
+        
+        .subtitle {
+            margin-bottom: 30px;
+            color: #b8b8d1;
+        }
+        
+        .clock-container {
+            position: relative;
+            width: 400px;
+            height: 400px;
+            margin: 0 auto;
+        }
+        
+        .brain-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><path fill="%23663C99" d="M50 15 C35 15 25 25 25 40 C25 50 30 55 35 60 C30 65 25 70 25 80 C25 90 35 95 50 95 C65 95 75 90 75 80 C75 70 70 65 65 60 C70 55 75 50 75 40 C75 25 65 15 50 15 Z M45 30 C50 30 55 35 55 40 C55 45 50 50 45 50 C40 50 35 45 35 40 C35 35 40 30 45 30 Z M55 30 C60 30 65 35 65 40 C65 45 60 50 55 50 C50 50 45 45 45 40 C45 35 50 30 55 30 Z M40 60 C45 60 50 65 50 70 C50 75 45 80 40 80 C35 80 30 75 30 70 C30 65 35 60 40 60 Z M60 60 C65 60 70 65 70 70 C70 75 65 80 60 80 C55 80 50 75 50 70 C50 65 55 60 60 60 Z"/></svg>') no-repeat center center;
+            background-size: contain;
+            opacity: 0.8;
+            z-index: 1;
+        }
+        
+        .clock-face {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            background: rgba(102, 60, 153, 0.7);
+            border: 8px solid #e94560;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            box-shadow: 0 0 20px rgba(102, 60, 153, 0.7), 
+                        inset 0 0 20px rgba(255, 255, 255, 0.2);
+            z-index: 2;
+        }
+        
+        .center-circle {
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: #e94560;
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            z-index: 10;
+            box-shadow: 0 0 10px rgba(233, 69, 96, 0.8);
+        }
+        
+        .hand {
+            position: absolute;
+            transform-origin: bottom center;
+            bottom: 50%;
+            left: 50%;
+            border-radius: 4px 4px 0 0;
+        }
+        
+        .hour-hand {
+            width: 8px;
+            height: 80px;
+            background: white;
+            transform: translateX(-50%);
+            z-index: 5;
+        }
+        
+        .minute-hand {
+            width: 6px;
+            height: 120px;
+            background: white;
+            transform: translateX(-50%);
+            z-index: 6;
+        }
+        
+        .second-hand {
+            width: 3px;
+            height: 140px;
+            background: #e94560;
+            transform: translateX(-50%);
+            z-index: 7;
+        }
+        
+        .number {
+            position: absolute;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+            text-shadow: 0 0 5px rgba(233, 69, 96, 0.7);
+            z-index: 3;
+        }
+        
+        .mark {
+            position: absolute;
+            background: white;
+            z-index: 3;
+        }
+        
+        .hour-mark {
+            width: 4px;
+            height: 15px;
+        }
+        
+        .minute-mark {
+            width: 2px;
+            height: 8px;
+        }
+        
+        .digital-time {
+            margin-top: 20px;
+            font-size: 24px;
+            color: white;
+            background: rgba(102, 60, 153, 0.7);
+            padding: 10px 20px;
+            border-radius: 10px;
+            display: inline-block;
+            box-shadow: 0 0 15px rgba(102, 60, 153, 0.5);
+        }
+        
+        .date-display {
+            margin-top: 10px;
+            font-size: 18px;
+            color: #b8b8d1;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Brain Clock</h1>
+        <p class="subtitle">Time is the most valuable asset of the mind</p>
+        
+        <div class="clock-container">
+            <div class="brain-image"></div>
+            <div class="clock-face">
+                <!-- Clock numbers and marks will be added with JavaScript -->
+            </div>
+            <div class="hand hour-hand"></div>
+            <div class="hand minute-hand"></div>
+            <div class="hand second-hand"></div>
+            <div class="center-circle"></div>
+        </div>
+        
+        <div class="digital-time" id="digitalTime">00:00:00</div>
+        <div class="date-display" id="dateDisplay">Loading date...</div>
+    </div>
+
+    <script>
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours();
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+            
+            // Calculate angles for clock hands
+            const hourAngle = (hours % 12) * 30 + minutes * 0.5; // 30 degrees per hour, 0.5 degrees per minute
+            const minuteAngle = minutes * 6 + seconds * 0.1; // 6 degrees per minute, 0.1 degrees per second
+            const secondAngle = seconds * 6; // 6 degrees per second
+            
+            // Update hand rotations
+            document.querySelector('.hour-hand').style.transform = `translateX(-50%) rotate(${hourAngle}deg)`;
+            document.querySelector('.minute-hand').style.transform = `translateX(-50%) rotate(${minuteAngle}deg)`;
+            document.querySelector('.second-hand').style.transform = `translateX(-50%) rotate(${secondAngle}deg)`;
+            
+            // Update digital time
+            const digitalTime = document.getElementById('digitalTime');
+            digitalTime.textContent = 
+                `${hours.toString().padStart(2, '0')}:${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
+            
+            // Update date
+            const dateDisplay = document.getElementById('dateDisplay');
+            const options = { weekday: 'long', year: 'numeric', month: 'long', day: 'numeric' };
+            dateDisplay.textContent = now.toLocaleDateString('en-US', options);
+        }
+        
+        function createClockMarks() {
+            const clockFace = document.querySelector('.clock-face');
+            
+            // Create hour numbers
+            for (let i = 1; i <= 12; i++) {
+                const number = document.createElement('div');
+                number.className = 'number';
+                number.textContent = i;
+                
+                // Position numbers around the clock
+                const angle = (i * 30) * (Math.PI / 180); // Convert to radians
+                const radius = 140; // Distance from center
+                const x = 50 + radius * Math.sin(angle);
+                const y = 50 - radius * Math.cos(angle);
+                
+                number.style.left = `${x}%`;
+                number.style.top = `${y}%`;
+                number.style.transform = 'translate(-50%, -50%)';
+                
+                clockFace.appendChild(number);
+            }
+            
+            // Create hour marks
+            for (let i = 0; i < 12; i++) {
+                const mark = document.createElement('div');
+                mark.className = 'mark hour-mark';
+                
+                const angle = i * 30;
+                mark.style.transform = `rotate(${angle}deg) translateY(-140px)`;
+                
+                clockFace.appendChild(mark);
+            }
+            
+            // Create minute marks
+            for (let i = 0; i < 60; i++) {
+                if (i % 5 !== 0) { // Skip positions where hour marks are
+                    const mark = document.createElement('div');
+                    mark.className = 'mark minute-mark';
+                    
+                    const angle = i * 6;
+                    mark.style.transform = `rotate(${angle}deg) translateY(-145px)`;
+                    
+                    clockFace.appendChild(mark);
+                }
+            }
+        }
+        
+        // Initialize the clock
+        createClockMarks();
+        updateClock();
+        setInterval(updateClock, 1000);
+    </script>
+</body>
+</html>
