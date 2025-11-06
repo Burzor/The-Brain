@@ -8,7 +8,7 @@ A stunning analog clock integrated with a brain illustration, featuring real-tim
 
 <div align="center">
 
-![Brain Clock](https://via.placeholder.com/400x400/663C99/FFFFFF?text=Brain+Clock+Image)
+![Brain Clock](Screenshot_20251106-012545_1.png)
 *Replace this placeholder with an actual screenshot of your clock*
 
 **Colors**: Purple (#663C99) • White • Red (#E94560)
